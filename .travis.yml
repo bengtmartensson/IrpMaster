@@ -1,0 +1,16 @@
+sudo: required
+notifications:
+email: false
+language: java
+jdk:
+- oraclejdk8
+before_install:
+- sudo add-apt-repository ppa:dns/gnu -y
+- sudo apt-get update -qq
+install:
+- sudo apt-get install -y --force-yes autoconf python-requests
+script:
+- tools/build-decodeir.sh
+- tools/build-exchangeir.sh
+- mvn install -DskipTests=true -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V
+- tools/travis2github.py target/IrpMaster-*.zip
