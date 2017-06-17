@@ -7,14 +7,8 @@
     <groupId>org.harctoolbox</groupId>
     <artifactId>IrpMaster</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.1</version>
+    <version>1.5dev</version>
     <name>IrpMaster</name>
-    <parent>
-        <groupId>org.harctoolbox</groupId>
-        <artifactId>HarctoolboxBundle</artifactId>
-        <version>1.4.1</version>
-        <relativePath>..</relativePath>
-    </parent>
     <licenses>
         <license>
             <name>GPL 3+</name>
@@ -28,13 +22,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <distributionManagement>
+    <!--distributionManagement>
         <repository>
             <id>repos</id>
             <name>Repository</name>
             <url>file:///${project.basedir}/../repos</url>
         </repository>
-    </distributionManagement>
+    </distributionManagement-->
     <build>
         <plugins>
             <!-- Generate ConfigFileParser and ConfigFileLexer from
@@ -75,7 +69,7 @@
                             <includes>
                                 <include>Version.xml</include>
                             </includes>
-                            <stylesheet>../tools/mkVersion.xsl</stylesheet>
+                            <stylesheet>tools/mkVersion.xsl</stylesheet>
                             <parameters>
                                 <parameter>
                                     <name>version</name>
@@ -102,7 +96,7 @@
                             <includes>
                                 <include>IrpMaster.xml</include>
                             </includes>
-                            <stylesheet>../tools/xdoc2html.xsl</stylesheet>
+                            <stylesheet>tools/xdoc2html.xsl</stylesheet>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
                                     <targetExtension>.html</targetExtension>
@@ -140,6 +134,7 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <descriptors>
+                        <descriptor>src/assembly/jar-with-dependencies.xml</descriptor>
                         <descriptor>src/assembly/target.xml</descriptor>
                     </descriptors>
                 </configuration>
@@ -168,6 +163,20 @@
                             <resources>
                                 <resource>
                                     <directory>src/main/config</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/doc</directory>
+                                    <includes>
+                                        <include>IrpMaster.releasenotes.txt</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>.</directory>
+                                    <includes>
+                                        <include>*.txt</include>
+                                    </includes>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
@@ -208,26 +217,31 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr-runtime</artifactId>
+            <version>3.5.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>stringtemplate</artifactId>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
+            <version>1.35</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.hifiremote</groupId>
             <artifactId>ExchangeIR</artifactId>
+            <version>0.0.8.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.hifiremote</groupId>
             <artifactId>DecodeIRCaller</artifactId>
+            <version>2.44</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -235,30 +249,6 @@
             <artifactId>testng</artifactId>
             <version>6.8.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-            <version>2.44.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.opera</groupId>
-            <artifactId>operadriver</artifactId>
-            <scope>test</scope>
-            <version>1.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium</groupId>
-                    <artifactId>selenium-remote-driver</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>4.11</version>
         </dependency>
     </dependencies>
 </project>
