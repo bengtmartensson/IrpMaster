@@ -815,7 +815,7 @@ public class IrpMaster implements Serializable {
     //}
 
     public boolean isKnown(String protocol) {
-        return protocols.containsKey(protocol.toLowerCase(Locale.US));
+        return protocol != null && protocols.containsKey(protocol.toLowerCase(Locale.US));
     }
 
 
